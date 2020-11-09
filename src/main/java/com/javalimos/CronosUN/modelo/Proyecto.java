@@ -1,0 +1,78 @@
+package com.javalimos.CronosUN.modelo;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
+import lombok.Data;
+import lombok.ToString;
+import org.springframework.data.annotation.Id;
+
+@Data
+@Entity
+@Table(name = "\"proyecto\"")
+public class Proyecto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @NotNull
+    @Column(name = "\"pro_id\"")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @NotNull
+    @Column(name = "\"pro_titulo\"", length = 45)
+    private String titulo;
+
+    @Column(name = "\"pro_descripcion\"", length = 255)
+    private String descripcion;
+
+
+    @Column(name = "\"pro_contenido\"", length = 10000)
+    private String contenido;
+
+    @NotNull
+    @Column(name = "\"pro_privacidad\"")
+    private Boolean privacidad;
+
+    @NotNull
+    @Column(name = "\"pro_estado\"", length = 45)
+    private String estado;
+
+    @NotNull
+    @Column(name = "\"pro_fecha_creacion\"")
+    @Temposral(TemporalType.DATE)
+    private Date fechaCreacion;
+
+    @Column(name = "\"pro_fecha_finalizacion\"")
+    @Temporal(TemporalType.DATE)
+    private Date fecha_finalizacion;
+
+    @NotNull
+    @Column(name = "\"pro_categoria\"", length = 45)
+    private String categoria;
+
+    @ToString.Exclude
+    @JoinColumn(name = "\"pro_usu_id\"", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @Valid
+    private Usuario usuario;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "proyecto", orphanRemoval = true)
+    @Valid
+    private List<Archivo> archivos = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "proyecto", orphanRemoval = true)
+    @Valid
+    private List<Comentario> comentarios = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "proyecto", orphanRemoval = true)
+    @Valid
+    private List<Reporte> reportes = new ArrayList<>();
+
+}
