@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import lombok.Data;
@@ -21,64 +21,83 @@ import org.springframework.data.annotation.Id;
 
 @Data
 @Entity
-@Table(name = "\"usuario\"")
+@Table( name = "\"usuario\"" )
 public class Usuario implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
-
+    
     @Id
-    @NotNull
-    @Column(name = "\"usu_id\"")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull
-    @Column(name = "\"usu_nombre\"", length = 45)
+    @Column( name = "\"usu_id\"" )
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    private Integer id;
+    
+    @NotBlank
+    @Column( name = "\"usu_nombre\"", nullable = false, length = 45 )
     private String nombre;
-
-    @NotNull
-    @Column(name = "\"usu_correo\"", length = 320)
+    
+    @NotBlank
+    @Column( name = "\"usu_correo\"", nullable = false, length = 320 )
     private String correo;
-
-    @NotNull
-    @Column(name = "\"usu_clave\"", length = 127)
+    
+    @NotBlank
+    @Column( name = "\"usu_clave\"", nullable = false, length = 127 )
     private String clave;
-
-    @NotNull
-    @Column(name = "\"usu_alias\"", length = 45)
-    @Size(min = 4, message = "El alias del usuario debe tener como minimo 45 caracteres.")
-    @Size(max = 45, message = "El alias del usuario debe tener como maximo 45 caracteres.")
+    
+    @NotBlank
+    @Column( name = "\"usu_alias\"", nullable = false, length = 45 )
+    @Size( min = 4, message = "El alias del usuario debe tener como minimo 45 caracteres." )
+    @Size( max = 45, message = "El alias del usuario debe tener como maximo 45 caracteres." )
     private String alias;
-
-    @Column(name = "\"usu_biografia\"", length = 515)
+    
+    @Column( name = "\"usu_biografia\"", length = 515 )
     private String biografia;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario", orphanRemoval = true)
+    
+    @OneToMany( fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL,
+                mappedBy = "usuario",
+                orphanRemoval = true )
     @Valid
     private List<Reporte> reportes = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario", orphanRemoval = true)
+    
+    @OneToMany( fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL,
+                mappedBy = "usuario",
+                orphanRemoval = true )
     @Valid
     private List<Proyecto> proyectos = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario", orphanRemoval = true)
+    
+    @OneToMany( fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL,
+                mappedBy = "usuario",
+                orphanRemoval = true )
     @Valid
     private List<EntradaDiario> entradasDiario = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario", orphanRemoval = true)
+    
+    @OneToMany( fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL,
+                mappedBy = "usuario",
+                orphanRemoval = true )
     @Valid
     private List<Comentario> comentarios = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario", orphanRemoval = true)
+    
+    @OneToMany( fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL,
+                mappedBy = "usuario",
+                orphanRemoval = true )
     @Valid
     private List<AsignaturaOpcion> asignaturasOpcion = new ArrayList<>();
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario", orphanRemoval = true)
+    
+    @OneToMany( fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL,
+                mappedBy = "usuario",
+                orphanRemoval = true )
     @Valid
     private List<HorarioInscripcion> horariosInscripcion = new ArrayList<>();
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario", orphanRemoval = true)
+    
+    @OneToOne( fetch = FetchType.LAZY,
+                cascade = CascadeType.ALL,
+                mappedBy = "usuario",
+                orphanRemoval = true )
     @Valid
     private HorarioPersonal horarioPersonal;
-
 }

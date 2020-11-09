@@ -10,7 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.ToString;
@@ -18,29 +18,27 @@ import org.springframework.data.annotation.Id;
 
 @Data
 @Entity
-@Table(name = "\"asignatura\"")
+@Table( name = "\"asignatura\"" )
 public class Asignatura implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
-
+    
     @Id
-    @NotNull
-    @Column(name = "\"asi_id\"")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @NotNull
-    @Column(name = "\"asi_nombre\"", length = 100)
+    @Column( name = "\"asi_id\"", nullable = false )
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    private Integer id;
+    
+    @NotBlank
+    @Column( name = "\"asi_nombre\"", nullable = false, length = 100 )
     private String nombre;
-
-    @NotNull
-    @Column(name = "\"asi_grupo\"", length = 1000)
+    
+    @NotBlank
+    @Column( name = "\"asi_grupo\"", nullable = false, length = 1000 )
     private String grupo;
-
+    
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "\"asi_hri_id\"", nullable = false)
+    @ManyToOne( fetch = FetchType.LAZY )
+    @JoinColumn( name = "\"asi_hri_id\"", nullable = false )
     @Valid
     private HorarioInscripcion horarioInscripcion;
-
 }

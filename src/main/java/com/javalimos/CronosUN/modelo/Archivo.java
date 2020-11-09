@@ -11,31 +11,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
 
 @Entity
-@Table(name = "\"archivo\"")
+@Table( name = "\"archivo\"" )
 @Data
 public class Archivo implements Serializable {
-
+    
     private static final long serialVersionUID = 1L;
-
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "\"arc_id\"", nullable = false)
+    @Column( name = "\"arc_id\"", nullable = false )
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
-
-    @Size(max = 100, message = "El nombre del archivo no puede ser mayor a 100 caracteres.")
-    @Column(name = "\"arc_nombre\"", nullable = false)
+    
+    @NotBlank
+    @Size( max = 100, message = "El nombre del archivo no puede ser mayor a 100 caracteres." )
+    @Column( name = "\"arc_nombre\"", nullable = false )
     private String nombre;
-
+    
     @ToString.Exclude
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "\"arc_pro_id\"", nullable = false)
+    @ManyToOne( fetch = FetchType.LAZY )
+    @JoinColumn( name = "\"arc_pro_id\"", nullable = false )
     @Valid
     private Proyecto proyecto;
-
 }
