@@ -1,6 +1,7 @@
 package com.javalimos.CronosUN.modelo;
 
 import java.io.Serializable;
+import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,12 +15,10 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
 @Data
 @Entity
 @Table( name = "\"reporte\"" )
-
 public class Reporte implements Serializable {
     
     private static final long serialVersionUID = 1L;
@@ -35,13 +34,13 @@ public class Reporte implements Serializable {
     
     @ToString.Exclude
     @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"rep_usu_id\"", nullable = false )
+    @JoinColumn( name = "\"rep_usu_id\"", nullable = false, insertable = false, updatable = false )
     @Valid
     private Usuario usuario;
     
     @ToString.Exclude
     @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"rep_pro_id\"", nullable = false )
+    @JoinColumn( name = "\"rep_pro_id\"", nullable = false, insertable = false, updatable = false )
     @Valid
     private Proyecto proyecto;
 }

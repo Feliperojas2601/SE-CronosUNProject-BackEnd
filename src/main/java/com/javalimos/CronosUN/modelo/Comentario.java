@@ -2,6 +2,7 @@ package com.javalimos.CronosUN.modelo;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Id;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 @Data
 @NoArgsConstructor
@@ -43,13 +44,13 @@ public class Comentario implements Serializable {
     
     @ToString.Exclude
     @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"com_pro_id\"", nullable = false )
+    @JoinColumn( name = "\"com_pro_id\"", nullable = false, insertable = false, updatable = false )
     @Valid
     private Proyecto proyecto;
     
     @ToString.Exclude
     @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"com_usu_id\"", nullable = false )
+    @JoinColumn( name = "\"com_usu_id\"", insertable = false, updatable = false )
     @Valid
     private Usuario usuario;
 }

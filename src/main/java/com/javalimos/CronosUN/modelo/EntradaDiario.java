@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
 @Data
 @Entity
@@ -39,7 +38,7 @@ public class EntradaDiario implements Serializable {
     
     @ToString.Exclude
     @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "ent_usu_id", nullable = false )
+    @JoinColumn( name = "ent_usu_id", nullable = false, insertable = false, updatable = false )
     @Valid
     private Usuario usuario;
     

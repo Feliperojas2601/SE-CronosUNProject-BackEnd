@@ -3,6 +3,7 @@ package com.javalimos.CronosUN.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Id;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,10 +17,13 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table( name = "\"usuario\"" )
 public class Usuario implements Serializable {
@@ -27,7 +31,7 @@ public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @Column( name = "\"usu_id\"" )
+    @Column( name = "\"usu_id\"", nullable = false )
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
     

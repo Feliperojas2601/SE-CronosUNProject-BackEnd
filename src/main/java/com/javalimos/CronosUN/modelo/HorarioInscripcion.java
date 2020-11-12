@@ -3,6 +3,7 @@ package com.javalimos.CronosUN.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Id;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +20,6 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Data
@@ -39,7 +39,7 @@ public class HorarioInscripcion implements Serializable {
     
     @ToString.Exclude
     @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"hri_usu_id\"", nullable = false )
+    @JoinColumn( name = "\"hri_usu_id\"", nullable = false, insertable = false, updatable = false )
     @Valid
     private Usuario usuario;
     

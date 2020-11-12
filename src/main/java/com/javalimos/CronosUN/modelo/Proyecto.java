@@ -11,7 +11,6 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
 @Data
 @Entity
@@ -57,7 +56,7 @@ public class Proyecto implements Serializable {
     private String categoria;
     
     @ToString.Exclude
-    @JoinColumn( name = "\"pro_usu_id\"", nullable = false )
+    @JoinColumn( name = "\"pro_usu_id\"", nullable = false, insertable = false, updatable = false )
     @ManyToOne( fetch = FetchType.LAZY )
     @Valid
     private Usuario usuario;

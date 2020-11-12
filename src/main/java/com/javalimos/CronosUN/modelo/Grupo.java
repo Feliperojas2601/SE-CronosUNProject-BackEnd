@@ -1,6 +1,7 @@
 package com.javalimos.CronosUN.modelo;
 
 import java.io.Serializable;
+import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +16,6 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
 @Data
 @Entity
@@ -40,7 +40,7 @@ public class Grupo implements Serializable {
     
     @ToString.Exclude
     @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"gru_aso_id\"", nullable = false )
+    @JoinColumn( name = "\"gru_aso_id\"", nullable = false, insertable = false, updatable = false )
     @Valid
     private AsignaturaOpcion asignaturaOpcion;
     

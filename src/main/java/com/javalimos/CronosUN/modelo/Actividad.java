@@ -1,6 +1,8 @@
 package com.javalimos.CronosUN.modelo;
 
+import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,12 +19,13 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.ToString;
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Data
 @Table( name = "\"actividad\"" )
-public class Actividad {
+public class Actividad implements Serializable {
+    
+    private static final long serialVersionUID = 1L;
     
     @Id
     @Column( name = "\"act_id\"", nullable = false )
@@ -52,13 +55,13 @@ public class Actividad {
     private String dias;
     
     @ToString.Exclude
-    @JoinColumn( name = "\"act_hrp_usu_id\"", nullable = false )
+    @JoinColumn( name = "\"act_hrp_usu_id\"", nullable = false, insertable = false, updatable = false )
     @ManyToOne( fetch = FetchType.LAZY )
     @Valid
     private Usuario usuario;
     
     @ToString.Exclude
-    @JoinColumn( name = "\"act_hrp_usu_id\"", nullable = false )
+    @JoinColumn( name = "\"act_hrp_usu_id\"", nullable = false, insertable = false, updatable = false )
     @ManyToOne( fetch = FetchType.LAZY )
     @Valid
     private HorarioPersonal horarioPersonal;
