@@ -34,9 +34,6 @@ public class Archivo implements Serializable {
     @Column( name = "\"arc_nombre\"", nullable = false )
     private String nombre;
     
-    @ToString.Exclude
-    @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"arc_pro_id\"", nullable = false, insertable = false, updatable = false )
-    @Valid
-    private Proyecto proyecto;
+    @Column( name = "arc_pro_id", nullable = false )
+    private Integer idProyecto;
 }
