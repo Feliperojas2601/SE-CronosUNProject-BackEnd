@@ -5,7 +5,6 @@ import com.javalimos.CronosUN.dto.UsuarioDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.javalimos.CronosUN.servicio.RegistroServicio;
-import com.javalimos.CronosUN.modelo.Usuario;
 
 import javax.validation.Valid;
 
