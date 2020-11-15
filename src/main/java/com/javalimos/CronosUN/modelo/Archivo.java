@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotBlank;
 
@@ -34,9 +35,7 @@ public class Archivo implements Serializable {
     @Column( name = "\"arc_nombre\"", nullable = false )
     private String nombre;
     
-    @ToString.Exclude
-    @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"arc_pro_id\"", nullable = false, insertable = false, updatable = false )
-    @Valid
-    private Proyecto proyecto;
+    @NotNull
+    @Column( name = "arc_pro_id", nullable = false )
+    private Integer idProyecto;
 }

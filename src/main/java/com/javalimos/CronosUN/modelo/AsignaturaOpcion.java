@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.ToString;
@@ -33,17 +34,7 @@ public class AsignaturaOpcion implements Serializable {
     @Column( name = "\"aso_nombre\"", nullable = false )
     private String nombre;
     
-    @ToString.Exclude
-    @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"aso_usu_id\"", nullable = false, insertable = false, updatable = false )
-    @Valid
-    private Usuario usuario;
-    
-    @OneToMany( fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL,
-                mappedBy = "asignaturaOpcion",
-                orphanRemoval = true )
-    @Valid
-    List<Grupo> grupos = new ArrayList<>();
-    
+    @NotNull
+    @Column( name = "\"aso_usu_id\"", nullable = false )
+    private Integer idUsuario;
 }

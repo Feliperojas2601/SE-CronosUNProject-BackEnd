@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -51,15 +52,11 @@ public class Comentario implements Serializable {
     @Temporal( TemporalType.TIME )
     private Date hora;
     
-    @ToString.Exclude
-    @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"com_pro_id\"", nullable = false, insertable = false, updatable = false )
-    @Valid
-    private Proyecto proyecto;
+    @NotNull
+    @Column( name = "\"com_pro_id\"", nullable = false )
+    private Integer idProyecto;
     
-    @ToString.Exclude
-    @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"com_usu_id\"", insertable = false, updatable = false )
-    @Valid
-    private Usuario usuario;
+    @NotNull
+    @Column( name = "\"com_usu_id\"", nullable = false )
+    private Integer idUsuario;
 }
