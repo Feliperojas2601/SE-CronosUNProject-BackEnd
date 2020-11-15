@@ -15,7 +15,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class UsuarioDTO implements Serializable {
+public class RegistroUsuarioDTO implements Serializable {
     
     @NotBlank
     private String nombre;
