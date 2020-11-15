@@ -36,7 +36,10 @@ public class EntradaDiario implements Serializable {
     @Temporal( TemporalType.TIME )
     private Date hora;
     
-    @NotNull
-    @Column( name = "\"ent_usu_id\"", nullable = false )
-    private Integer idUsuario;
+    @ToString.Exclude
+    @ManyToOne( fetch = FetchType.LAZY )
+    @JoinColumn( name = "ent_usu_id", nullable = false, insertable = false, updatable = false )
+    @Valid
+    private Usuario usuario;
+    
 }

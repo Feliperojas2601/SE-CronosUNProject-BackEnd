@@ -4,12 +4,14 @@ import java.io.Serializable;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.ToString;
@@ -22,19 +24,23 @@ public class Reporte implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
     @Column( name = "\"rep_id\"", nullable = false )
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
     
     @NotBlank
-    @Column( name = "\"rep_razon\"", nullable = false )
+    @Column( name = "\"rep_razon\"", nullable = false, length = 100 )
     private String razon;
     
-    @NotNull
-    @Column( name = "\"rep_usu_id\"", nullable = false )
-    private Integer idUsuario;
+    @ToString.Exclude
+    @ManyToOne( fetch = FetchType.LAZY )
+    @JoinColumn( name = "\"rep_usu_id\"", nullable = false, insertable = false, updatable = false )
+    @Valid
+    private Usuario usuario;
     
-    @NotNull
-    @Column( name = "rep_pro_id", nullable = false )
-    private Integer idProyecto;
+    @ToString.Exclude
+    @ManyToOne( fetch = FetchType.LAZY )
+    @JoinColumn( name = "\"rep_pro_id\"", nullable = false, insertable = false, updatable = false )
+    @Valid
+    private Proyecto proyecto;
 }

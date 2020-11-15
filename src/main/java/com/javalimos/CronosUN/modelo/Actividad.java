@@ -54,11 +54,15 @@ public class Actividad implements Serializable {
     @Column( name = "\"act_dias\"", nullable = false, length = 7 )
     private String dias;
     
-    @NotNull
-    @Column( name = "\"act_hrp_usu_id\"", nullable = false )
-    private Integer idUsuario;
+    @ToString.Exclude
+    @JoinColumn( name = "\"act_hrp_usu_id\"", nullable = false, insertable = false, updatable = false )
+    @ManyToOne( fetch = FetchType.LAZY )
+    @Valid
+    private Usuario usuario;
     
-    @NotNull
-    @Column( name = "\"act_hrp_usu_id\"", nullable = false )
-    private Integer idHorarioPersonal;
+    @ToString.Exclude
+    @JoinColumn( name = "\"act_hrp_usu_id\"", nullable = false, insertable = false, updatable = false )
+    @ManyToOne( fetch = FetchType.LAZY )
+    @Valid
+    private HorarioPersonal horarioPersonal;
 }

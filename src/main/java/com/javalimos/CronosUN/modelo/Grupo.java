@@ -13,7 +13,6 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.NotBlank;
 
 import lombok.Data;
 import lombok.ToString;
@@ -26,20 +25,23 @@ public class Grupo implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
     @Column( name = "\"gru_id\"", nullable = false )
+    @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Integer id;
     
     @NotNull
     @Min( 1 )
     @Column( name = "\"gru_numero\"", nullable = false )
-    private Integer numero;
+    private int numero;
     
-    @NotBlank
+    @NotNull
     @Column( name = "\"gru_contenido\"", nullable = false, length = 1200 )
     private String contenido;
     
-    @NotNull
-    @Column( name = "\"gru_aso_id\"", nullable = false )
-    private Integer idAsignatura;
+    @ToString.Exclude
+    @ManyToOne( fetch = FetchType.LAZY )
+    @JoinColumn( name = "\"gru_aso_id\"", nullable = false, insertable = false, updatable = false )
+    @Valid
+    private AsignaturaOpcion asignaturaOpcion;
+    
 }
