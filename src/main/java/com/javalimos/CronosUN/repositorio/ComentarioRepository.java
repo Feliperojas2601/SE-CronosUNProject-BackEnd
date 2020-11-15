@@ -1,9 +1,10 @@
 package com.javalimos.CronosUN.repositorio;
 
 import com.javalimos.CronosUN.modelo.Comentario;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ComentarioRepository extends JpaRepository<Comentario, Integer>, JpaSpecificationExecutor<Comentario> {
+@Repository
+public interface ComentarioRepository extends CrudRepository<Comentario, Integer> {
 
 }

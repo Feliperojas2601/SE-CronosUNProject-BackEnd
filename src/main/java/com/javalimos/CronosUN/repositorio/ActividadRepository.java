@@ -1,9 +1,10 @@
 package com.javalimos.CronosUN.repositorio;
 
 import com.javalimos.CronosUN.modelo.Actividad;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ActividadRepository extends JpaRepository<Actividad, Integer>, JpaSpecificationExecutor<Actividad> {
+@Repository
+public interface ActividadRepository extends CrudRepository<Actividad, Integer> {
 
 }

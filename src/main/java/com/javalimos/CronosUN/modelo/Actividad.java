@@ -41,12 +41,12 @@ public class Actividad implements Serializable {
     private String descripcion;
     
     @NotNull
-    @Column( name = "\"act_hora_inicio\"", nullable = false )
+    @Column( name = "\"act_hora_inicio\"", nullable = false, length = 5)
     @Temporal( TemporalType.TIME )
     private Date hora_inicio;
     
-    @NotNull
-    @Column( name = "\"act_hora_final\"", nullable = false )
+    @NotNull    
+    @Column( name = "\"act_hora_final\"", nullable = false, length = 5)
     @Temporal( TemporalType.TIME )
     private Date hora_final;
     

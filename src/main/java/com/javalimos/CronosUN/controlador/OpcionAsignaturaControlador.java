@@ -1,17 +1,10 @@
 package com.javalimos.CronosUN.controlador;
 
-import com.javalimos.CronosUN.dto.OpcionAsignaturaDTO;
-import com.javalimos.CronosUN.modelo.AsignaturaOpcion;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.javalimos.CronosUN.servicio.IOpcionAsignaturaServicio;
 
 import com.javalimos.CronosUN.constante.RutasApi;
 
-import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping( RutasApi.OPCION_ASIGNATURA )

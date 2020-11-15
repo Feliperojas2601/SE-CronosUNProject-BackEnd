@@ -7,5 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping( RutasApi.INICIO_SESION )
 public class InicioSesionControlador {
-
+//    @Autowired
+//    private IOpcionAsignaturaServicio servicio;
 }

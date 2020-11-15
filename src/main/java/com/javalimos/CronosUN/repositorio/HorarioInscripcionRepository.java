@@ -1,9 +1,10 @@
 package com.javalimos.CronosUN.repositorio;
 
 import com.javalimos.CronosUN.modelo.HorarioInscripcion;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface HorarioInscripcionRepository extends JpaRepository<HorarioInscripcion, Integer>, JpaSpecificationExecutor<HorarioInscripcion> {
+@Repository
+public interface HorarioInscripcionRepository extends CrudRepository<HorarioInscripcion, Integer> {
 
 }

@@ -35,7 +35,7 @@ public class Proyecto implements Serializable {
     private String contenido;
     
     @NotNull
-    @Column( name = "\"pro_privacidad\"", nullable = false )
+    @Column( name = "\"pro_privacidad\"", nullable = false, columnDefinition = "tinyint")
     private boolean privacidad;
     
     @NotBlank

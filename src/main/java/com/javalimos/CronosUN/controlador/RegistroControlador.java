@@ -2,9 +2,10 @@ package com.javalimos.CronosUN.controlador;
 
 import com.javalimos.CronosUN.constante.RutasApi;
 import com.javalimos.CronosUN.dto.UsuarioDTO;
-import com.javalimos.CronosUN.servicio.implementacion.RegistroUsuarioServicio;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.javalimos.CronosUN.servicio.RegistroServicio;
+import com.javalimos.CronosUN.modelo.Usuario;
 
 import javax.validation.Valid;
 
@@ -12,13 +13,16 @@ import javax.validation.Valid;
 @RequestMapping( RutasApi.CREAR_USUARIO )
 public class RegistroControlador {
     
-    private RegistroUsuarioServicio servicio;
+    private final RegistroServicio servicio;
+    
+    public RegistroControlador (RegistroServicio servicio) {
+        this.servicio = servicio;        
+    }
     
     @PostMapping
     public ResponseEntity<?> realizarRegistroUsuario(
             @Valid @RequestBody UsuarioDTO usuarioDTO ) {
-        UsuarioDTO usuarioRegistradoDTO = servicio.realizarRegistroUsuario( usuarioDTO );
-        
-        return ResponseEntity.ok( usuarioRegistradoDTO );
+        Integer idUsuario = servicio.realizarRegistroUsuario( usuarioDTO );
+        return ResponseEntity.ok(idUsuario);
     }
 }

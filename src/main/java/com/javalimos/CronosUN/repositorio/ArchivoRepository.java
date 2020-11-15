@@ -1,9 +1,10 @@
 package com.javalimos.CronosUN.repositorio;
 
 import com.javalimos.CronosUN.modelo.Archivo;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ArchivoRepository extends JpaRepository<Archivo, Integer>, JpaSpecificationExecutor<Archivo> {
+@Repository
+public interface ArchivoRepository extends CrudRepository<Archivo, Integer> {
 
 }
