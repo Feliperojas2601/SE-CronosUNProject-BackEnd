@@ -4,10 +4,9 @@ import com.javalimos.CronosUN.constante.RutasApi;
 
 import com.javalimos.CronosUN.dto.EntradaDiarioDTO;
 import com.javalimos.CronosUN.dto.FiltroEntradasDiarioDTO;
-import com.javalimos.CronosUN.servicio.IDiarioServicio;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.javalimos.CronosUN.servicio.DiarioServicio;
 
-import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -16,30 +15,32 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping( RutasApi.RECURSO_DIARIO )
 public class DiarioControlador {
     
-    @Autowired
-    private IDiarioServicio diarioServicio;
+    private DiarioServicio diarioServicio;
     
-    @GetMapping
-    public ResponseEntity<List<EntradaDiarioDTO>> obtenerEntradasDiario( @Valid @RequestParam FiltroEntradasDiarioDTO datosFiltro ) {
+    public DiarioControlador( DiarioServicio diarioServicio ) {
+        this.diarioServicio = diarioServicio;
+    }
+    
+    @GetMapping( RutasApi.RECURSO_DIARIO )
+    public ResponseEntity<List<EntradaDiarioDTO>> obtenerEntradasDiario( @Valid @RequestBody FiltroEntradasDiarioDTO datosFiltro ) {
         List<EntradaDiarioDTO> entradasDiario = diarioServicio.obtenerEntradasDiario( datosFiltro );
         
         return ResponseEntity.ok( entradasDiario );
     }
     
-    @PostMapping
-    public ResponseEntity<?> registrarEntradaDiario( @Valid @RequestParam EntradaDiarioDTO nuevaEntradaDiario ) {
-        diarioServicio.registrarEntradaDiario( nuevaEntradaDiario );
-        
-        return ( ResponseEntity<?> ) ResponseEntity.ok();
+    @PostMapping( RutasApi.RECURSO_DIARIO )
+    public ResponseEntity<EntradaDiarioDTO> registrarEntradaDiario( @Valid @RequestBody EntradaDiarioDTO nuevaEntradaDiario ) {
+        EntradaDiarioDTO entradaGuardada = diarioServicio.registrarEntradaDiario( nuevaEntradaDiario );
+        return ResponseEntity.ok( entradaGuardada );
     }
     
     @DeleteMapping( RutasApi.RECURSO_DIARIO_ITEM )
-    public ResponseEntity<?> eliminarEntradaDiario( @Valid @PathVariable int idEntrada ) {
-        diarioServicio.eliminarEntradaDiario( idEntrada );
-        
-        return ( ResponseEntity<?> ) ResponseEntity.ok();
+    public ResponseEntity<?> eliminarEntradaDiario( @PathVariable("id") Integer idEntrada ) {
+        if ( diarioServicio.eliminarEntradaDiario( idEntrada ) ) {
+            return new ResponseEntity<>( HttpStatus.OK );
+        }
+        return new ResponseEntity<>( HttpStatus.NOT_ACCEPTABLE );
     }
 }

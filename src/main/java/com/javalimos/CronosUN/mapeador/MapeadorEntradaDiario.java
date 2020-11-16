@@ -11,11 +11,10 @@ import org.mapstruct.Mappings;
 public interface MapeadorEntradaDiario {
     
     @Mappings( {
-            @Mapping( source = "nombre", target = "nombre" ),
-            @Mapping( source = "correo", target = "correo" ),
-            @Mapping( source = "clave", target = "clave" ),
-            @Mapping( source = "alias", target = "alias" ),
-            @Mapping( source = "biografia", target = "biografia" )
+            @Mapping( source = "id", target = "id" ),
+            @Mapping( source = "fecha", target = "fecha" ),
+            @Mapping( source = "contenido", target = "contenido" ),
+            @Mapping( source = "hora", target = "hora" ),
     } )
     EntradaDiario toEntradaDiario( EntradaDiarioDTO entradaDiarioDTO );
     

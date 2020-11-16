@@ -1,11 +1,10 @@
 package com.javalimos.CronosUN.controlador;
 
 import com.javalimos.CronosUN.constante.RutasApi;
-import com.javalimos.CronosUN.dto.UsuarioDTO;
+import com.javalimos.CronosUN.dto.RegistroUsuarioDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.javalimos.CronosUN.servicio.RegistroServicio;
-import com.javalimos.CronosUN.modelo.Usuario;
 
 import javax.validation.Valid;
 
@@ -21,7 +20,7 @@ public class RegistroControlador {
     
     @PostMapping
     public ResponseEntity<?> realizarRegistroUsuario(
-            @Valid @RequestBody UsuarioDTO usuarioDTO ) {
+            @Valid @RequestBody RegistroUsuarioDTO usuarioDTO ) {
         Integer idUsuario = servicio.realizarRegistroUsuario( usuarioDTO );
         return ResponseEntity.ok(idUsuario);
     }

@@ -5,7 +5,7 @@
  */
 package com.javalimos.CronosUN.servicio;
 
-import com.javalimos.CronosUN.dto.UsuarioDTO;
+import com.javalimos.CronosUN.dto.RegistroUsuarioDTO;
 import com.javalimos.CronosUN.modelo.Usuario;
 import com.javalimos.CronosUN.mapeador.MapeadorUsuario;
 import com.javalimos.CronosUN.repositorio.UsuarioRepository;
@@ -26,7 +26,7 @@ public class RegistroServicio {
     
     private final UsuarioRepository repositorio;
     
-    public Integer realizarRegistroUsuario(UsuarioDTO usuario){
+    public Integer realizarRegistroUsuario( RegistroUsuarioDTO usuario){
         Usuario usuarioEntidad = mapeador.toUsuario(usuario);
         Usuario usuarioGuardado = repositorio.save(usuarioEntidad);
         return usuarioGuardado.getId();

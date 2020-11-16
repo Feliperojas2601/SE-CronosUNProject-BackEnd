@@ -1,29 +1,32 @@
-package com.javalimos.CronosUN.servicio.implementacion;
+package com.javalimos.CronosUN.servicio;
 
 import com.javalimos.CronosUN.dto.EntradaDiarioDTO;
 import com.javalimos.CronosUN.dto.FiltroEntradasDiarioDTO;
 import com.javalimos.CronosUN.mapeador.MapeadorEntradaDiario;
 import com.javalimos.CronosUN.modelo.EntradaDiario;
+import com.javalimos.CronosUN.modelo.Usuario;
 import com.javalimos.CronosUN.repositorio.EntradaDiarioRepository;
 import com.javalimos.CronosUN.repositorio.UsuarioRepository;
-import com.javalimos.CronosUN.servicio.IDiarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class DiarioServicio implements IDiarioServicio {
+public class DiarioServicio {
     
     @Autowired
     private MapeadorEntradaDiario mapeadorEntradaDiario;
+    
+    @Autowired
+    private UsuarioRepository usuarioRepository;
     
     @Autowired
     private EntradaDiarioRepository entradaDiarioRepository;
@@ -37,28 +40,30 @@ public class DiarioServicio implements IDiarioServicio {
     }
     
     private Page<EntradaDiario> filtrarEntradasDiario( FiltroEntradasDiarioDTO datosFiltro, Pageable paginacion ) {
-        Date fechaInicial = datosFiltro.getFechaInicial();
-        Date fechaFinal = datosFiltro.getFechaFinal();
+        Usuario usuarioActual = usuarioRepository.findById( datosFiltro.getIdUsuario() ).get();
+        Date fechaInicial = datosFiltro.getFechaInicio(), fechaFinal = datosFiltro.getFechaFin();
         List<Date> fechas = datosFiltro.getFechas();
-    
+        
         if ( fechaInicial != null && fechaFinal != null ) {
             return filtrarEntradasDiarioPorRango( datosFiltro, paginacion );
         }
         
-        if ( fechas.size() > 0 ) {
-            return entradaDiarioRepository.findByFechaIn( fechas, paginacion );
+        if ( fechas != null && fechas.size() > 0 ) {
+            return entradaDiarioRepository.findByUsuarioAndFechaIn( usuarioActual, fechas, paginacion );
         }
         return entradaDiarioRepository.findAll( paginacion );
     }
     
     private Page<EntradaDiario> filtrarEntradasDiarioPorRango( FiltroEntradasDiarioDTO datosFiltro, Pageable paginacion ) {
-        Date horaInicial = datosFiltro.getHoraInicial();
-        Date horaFinal = datosFiltro.getHoraFinal();
+        Usuario usuarioActual = usuarioRepository.findById( datosFiltro.getIdUsuario() ).get();
+        Date fechaInicial = datosFiltro.getFechaInicio(), fechaFinal = datosFiltro.getFechaFin();
+        Date horaInicial = datosFiltro.getHoraInicio(), horaFinal = datosFiltro.getHoraFin();
         
         if ( horaInicial != null && horaFinal != null ) {
-            return entradaDiarioRepository.findAllAndFechaBetweenAndHoraBetween( fechaInicial, fechaFinal, horaInicial, horaFinal, paginacion );
+            return entradaDiarioRepository
+                    .findByUsuarioAndFechaBetweenAndHoraBetween( usuarioActual, fechaInicial, fechaFinal, horaInicial, horaFinal, paginacion );
         }
-        return entradaDiarioRepository.findAllAndFechaBetween( datosFiltro.getFechaInicial(), datosFiltro.getFechaFinal(), paginacion );
+        return entradaDiarioRepository.findByUsuarioAndFechaBetween( usuarioActual, fechaInicial, fechaFinal, paginacion );
     }
     
     private List<EntradaDiarioDTO> obtenerResultadoFiltroEntradasDiario( Page<EntradaDiario> resultadoEntradas ) {
@@ -69,22 +74,19 @@ public class DiarioServicio implements IDiarioServicio {
                     .map( mapeadorEntradaDiario::toEntradaDiarioDTO )
                     .collect( Collectors.toList() );
         }
-        
         return new ArrayList<EntradaDiarioDTO>();
     }
     
-    @Override
-    public boolean registrarEntradaDiario( EntradaDiarioDTO nuevaEntradaDiario ) {
-        if ( !entradaDiarioRepository.existsById( nuevaEntradaDiario.getId() ) ) {
-            EntradaDiario entradaDiario = mapeadorEntradaDiario.toEntradaDiario( nuevaEntradaDiario );
-            entradaDiarioRepository.save( entradaDiario );
-            return true;
-        }
-        return false;
+    public EntradaDiarioDTO registrarEntradaDiario( EntradaDiarioDTO nuevaEntradaDiario ) {
+        Usuario usuarioActual = usuarioRepository.findById( nuevaEntradaDiario.getIdUsuario() ).get();
+        EntradaDiario entradaDiario = mapeadorEntradaDiario.toEntradaDiario( nuevaEntradaDiario );
+        entradaDiario.setUsuario( usuarioActual );
+        EntradaDiarioDTO entradaGuardada = mapeadorEntradaDiario
+                .toEntradaDiarioDTO( entradaDiarioRepository.save( entradaDiario ) );
+        return entradaGuardada;
     }
     
-    @Override
-    public boolean eliminarEntradaDiario( int idEntrada ) {
+    public boolean eliminarEntradaDiario( Integer idEntrada ) {
         if ( entradaDiarioRepository.existsById( idEntrada ) ) {
             entradaDiarioRepository.deleteById( idEntrada );
             return true;
