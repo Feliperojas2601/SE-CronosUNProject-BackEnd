@@ -1,6 +1,6 @@
 package com.javalimos.CronosUN.mapeador;
 
-import com.javalimos.CronosUN.dto.UsuarioDTO;
+import com.javalimos.CronosUN.dto.RegistroUsuarioDTO;
 import com.javalimos.CronosUN.modelo.Usuario;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -18,8 +18,8 @@ public interface MapeadorUsuario {
         @Mapping(source = "alias", target = "alias"),
         @Mapping(source = "biografia", target = "biografia")
     })
-    Usuario toUsuario(UsuarioDTO usuarioDTO);
+    Usuario toUsuario(RegistroUsuarioDTO usuarioDTO);
 
     @InheritInverseConfiguration
-    UsuarioDTO toUsuarioDTO(Usuario usuario);
+    RegistroUsuarioDTO toUsuarioDTO(Usuario usuario);
 }
