@@ -1,37 +1,28 @@
 package com.javalimos.CronosUN.controlador;
 
+import com.javalimos.CronosUN.dto.OpcionAsignaturaDTO;
+import com.javalimos.CronosUN.servicio.OpcionAsignaturaServicio;
+import org.apache.coyote.Response;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 import com.javalimos.CronosUN.constante.RutasApi;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping( RutasApi.OPCION_ASIGNATURA )
 public class OpcionAsignaturaControlador {
-    
-    /*@Autowired
-    private IOpcionAsignaturaServicio servicio;*/
-    
-    /*@PostMapping
-    public ResponseEntity<?> obtenerOpcionesAsignaturas(
-            @Valid @RequestParam int idUsuario )
-            throws Exception {
-        
-        Llamar a servicio
-        List<OpcionAsignaturaDTO> asignaturas = servicio.obtenerOpcionesAsignaturas();
-        
-        return ResponseEntity.ok( asignaturas );
-    }*/
-    
+    private final OpcionAsignaturaServicio servicio;
+    public OpcionAsignaturaControlador (OpcionAsignaturaServicio servicio)   {this.servicio=servicio;}
+
+    @PostMapping
+    public ResponseEntity<?> realizarRegistroAsignaturaOpcion(
+            @Valid @RequestBody OpcionAsignaturaDTO opcionAsignaturaDTO){
+            Integer idUsuario = servicio.realizarRegistroAsignaturaOpcion(opcionAsignaturaDTO);
+            return ResponseEntity.ok(idUsuario);
+    }
 }
 
-// React
-
-/* const funcion = async () => {
-    const response = await fetch("/api/asignaturaOpcion", { queryParam: {
-            idUsuario: autenticacion.id
-        }});
-    
-    const asignaturas = await response.json();
-} */

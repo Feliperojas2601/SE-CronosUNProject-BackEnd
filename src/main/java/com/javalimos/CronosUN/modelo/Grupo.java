@@ -40,7 +40,7 @@ public class Grupo implements Serializable {
     
     @ToString.Exclude
     @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"gru_aso_id\"", nullable = false, insertable = false, updatable = false )
+    @JoinColumn( name = "\"gru_aso_id\"", nullable = false,  updatable = false )
     @Valid
     private AsignaturaOpcion asignaturaOpcion;
     

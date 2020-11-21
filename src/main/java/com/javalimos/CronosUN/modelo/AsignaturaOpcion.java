@@ -3,15 +3,7 @@ package com.javalimos.CronosUN.modelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Id;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
@@ -27,15 +19,20 @@ public class AsignaturaOpcion implements Serializable {
     
     @Id
     @Column( name = "\"aso_id\"", nullable = false )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
     @NotBlank
     @Column( name = "\"aso_nombre\"", nullable = false )
     private String nombre;
-    
+
+    @NotBlank
+    @Column( name = "\"aso_creditos\"", nullable = false )
+    private String creditos;
+
     @ToString.Exclude
     @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"aso_usu_id\"", nullable = false, insertable = false, updatable = false )
+    @JoinColumn( name = "\"aso_usu_id\"", nullable = false)
     @Valid
     private Usuario usuario;
     
