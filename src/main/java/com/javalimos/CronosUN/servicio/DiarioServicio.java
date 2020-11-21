@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,7 +47,7 @@ public class DiarioServicio {
             return filtrarEntradasDiarioPorRango( datosFiltro, paginacion );
         }
         
-        if ( fechas != null && fechas.size() > 0 ) {
+        if ( fechas != null && !fechas.isEmpty() ) {
             return entradaDiarioRepository.findByUsuarioAndFechaIn( usuarioActual, fechas, paginacion );
         }
         return entradaDiarioRepository.findAll( paginacion );

@@ -35,7 +35,7 @@ public class Proyecto implements Serializable {
     private String contenido;
     
     @NotNull
-    @Column( name = "\"pro_privacidad\"", nullable = false, columnDefinition = "tinyint")
+    @Column( name = "\"pro_privacidad\"", nullable = false, columnDefinition = "tinyint" )
     private boolean privacidad;
     
     @NotBlank
@@ -56,29 +56,29 @@ public class Proyecto implements Serializable {
     private String categoria;
     
     @ToString.Exclude
-    @JoinColumn( name = "\"pro_usu_id\"", nullable = false, insertable = false, updatable = false )
+    @JoinColumn( name = "\"pro_usu_id\"", nullable = false, updatable = false )
     @ManyToOne( fetch = FetchType.LAZY )
     @Valid
     private Usuario usuario;
     
     @OneToMany( fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL,
-                mappedBy = "proyecto",
-                orphanRemoval = true )
+            cascade = CascadeType.ALL,
+            mappedBy = "proyecto",
+            orphanRemoval = true )
     @Valid
     private List<Archivo> archivos = new ArrayList<>();
     
     @OneToMany( fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL,
-                mappedBy = "proyecto",
-                orphanRemoval = true )
+            cascade = CascadeType.ALL,
+            mappedBy = "proyecto",
+            orphanRemoval = true )
     @Valid
     private List<Comentario> comentarios = new ArrayList<>();
     
     @OneToMany( fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL,
-                mappedBy = "proyecto",
-                orphanRemoval = true )
+            cascade = CascadeType.ALL,
+            mappedBy = "proyecto",
+            orphanRemoval = true )
     @Valid
     private List<Reporte> reportes = new ArrayList<>();
     

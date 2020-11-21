@@ -23,21 +23,21 @@ public class DiarioControlador {
         this.diarioServicio = diarioServicio;
     }
     
-    @GetMapping( RutasApi.RECURSO_DIARIO )
+    @PostMapping( RutasApi.REGISTRO_DIARIO )
+    public ResponseEntity<EntradaDiarioDTO> registrarEntradaDiario( @Valid @RequestBody EntradaDiarioDTO nuevaEntradaDiario ) {
+        EntradaDiarioDTO entradaGuardada = diarioServicio.registrarEntradaDiario( nuevaEntradaDiario );
+        return ResponseEntity.ok( entradaGuardada );
+    }
+    
+    @PostMapping( RutasApi.ENTRADA_DIARIO )
     public ResponseEntity<List<EntradaDiarioDTO>> obtenerEntradasDiario( @Valid @RequestBody FiltroEntradasDiarioDTO datosFiltro ) {
         List<EntradaDiarioDTO> entradasDiario = diarioServicio.obtenerEntradasDiario( datosFiltro );
         
         return ResponseEntity.ok( entradasDiario );
     }
     
-    @PostMapping( RutasApi.RECURSO_DIARIO )
-    public ResponseEntity<EntradaDiarioDTO> registrarEntradaDiario( @Valid @RequestBody EntradaDiarioDTO nuevaEntradaDiario ) {
-        EntradaDiarioDTO entradaGuardada = diarioServicio.registrarEntradaDiario( nuevaEntradaDiario );
-        return ResponseEntity.ok( entradaGuardada );
-    }
-    
-    @DeleteMapping( RutasApi.RECURSO_DIARIO_ITEM )
-    public ResponseEntity<?> eliminarEntradaDiario( @PathVariable("id") Integer idEntrada ) {
+    @DeleteMapping( RutasApi.ENTRADA_DIARIO )
+    public ResponseEntity<?> eliminarEntradaDiario( @PathVariable( "id" ) Integer idEntrada ) {
         if ( diarioServicio.eliminarEntradaDiario( idEntrada ) ) {
             return new ResponseEntity<>( HttpStatus.OK );
         }
