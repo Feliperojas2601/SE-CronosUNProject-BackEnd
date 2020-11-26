@@ -28,7 +28,7 @@ public class Proyecto implements Serializable {
     @Column( name = "\"pro_titulo\"", nullable = false, length = 45 )
     private String titulo;
     
-    @Column( name = "\"pro_descripcion\"" )
+    @Column( name = "\"pro_descripcion\"", length = 255 )
     private String descripcion;
     
     @Column( name = "\"pro_contenido\"", length = 10000 )

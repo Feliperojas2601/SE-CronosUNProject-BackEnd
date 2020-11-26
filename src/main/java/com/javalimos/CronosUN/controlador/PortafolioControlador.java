@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin( origins = "http://localhost:3000" )
 @RestController
 public class PortafolioControlador {
     
@@ -26,23 +27,35 @@ public class PortafolioControlador {
         return ResponseEntity.ok( proyectoConsultado );
     }
     
+    @GetMapping( RutasApi.CATEGORIAS_PORTAFOLIO )
+    public ResponseEntity<List<String>> consultarCategoriasPortafolio( @PathVariable( "id" ) Integer idUsuario ) {
+        List<String> categoriasPortafolio = portafolioServicio.consultarCategoriasPortafolio( idUsuario );
+        return ResponseEntity.ok( categoriasPortafolio );
+    }
+    
+    @GetMapping( RutasApi.NUM_PAGINAS_PORTAFOLIO )
+    public ResponseEntity<Integer> consultarNumeroPaginasPortafolio( @Valid @RequestParam Integer idUsuario ) {
+        Integer numeroPaginas = portafolioServicio.consultarNumeroPaginasPortafolio( idUsuario );
+        return ResponseEntity.ok( numeroPaginas );
+    }
+    
     @PostMapping( RutasApi.REGISTRO_PROYECTO )
     public ResponseEntity<ProyectoDTO> registrarProyectoPortafolio( @Valid @RequestBody ProyectoDTO nuevoProyecto ) {
         ProyectoDTO proyectoGuardado = portafolioServicio.registrarProyectoPortafolio( nuevoProyecto );
         return ResponseEntity.ok( proyectoGuardado );
     }
     
-    @PutMapping( RutasApi.ACTUALIZACION_PROYECTO )
-    public ResponseEntity<ProyectoDTO> actualizarProyectoPortafolio( @Valid @PathVariable("id") Integer idProyecto,
-                                                                     @RequestBody ProyectoDTO proyectoEditado ) {
-        ProyectoDTO proyectoActualizado = portafolioServicio.actualizarProyectoPortafolio( idProyecto, proyectoEditado );
-        return ResponseEntity.ok( proyectoActualizado );
-    }
-    
     @PostMapping( RutasApi.FILTRO_PROYECTOS )
     public ResponseEntity<List<ProyectoDTO>> obtenerProyectosPortafolio( @Valid @RequestBody FiltroProyectosPortafolioDTO datosFiltro ) {
         List<ProyectoDTO> proyectos = portafolioServicio.obtenerProyectosPortafolio( datosFiltro );
         return ResponseEntity.ok( proyectos );
+    }
+    
+    @PutMapping( RutasApi.ACTUALIZACION_PROYECTO )
+    public ResponseEntity<ProyectoDTO> actualizarProyectoPortafolio( @Valid @PathVariable( "id" ) Integer idProyecto,
+                                                                     @RequestBody ProyectoDTO proyectoEditado ) {
+        ProyectoDTO proyectoActualizado = portafolioServicio.actualizarProyectoPortafolio( idProyecto, proyectoEditado );
+        return ResponseEntity.ok( proyectoActualizado );
     }
     
     @DeleteMapping( RutasApi.PROYECTO )

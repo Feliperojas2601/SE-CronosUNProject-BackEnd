@@ -18,7 +18,7 @@ public interface MapeadorProyecto {
             @Mapping( source = "estado", target = "estado" ),
             @Mapping( source = "fechaCreacion", target = "fechaCreacion" ),
             @Mapping( source = "fechaFinalizacion", target = "fechaFinalizacion" ),
-            @Mapping( source = "categoria", target = "categoria" ),
+            
     } )
     Proyecto toProyecto( ProyectoDTO proyectoDTO );
     

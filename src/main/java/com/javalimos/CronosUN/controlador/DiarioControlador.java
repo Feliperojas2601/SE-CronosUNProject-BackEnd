@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CrossOrigin( origins = "http://localhost:3000" )
 @RestController
 public class DiarioControlador {
     
@@ -23,13 +24,19 @@ public class DiarioControlador {
         this.diarioServicio = diarioServicio;
     }
     
+    @GetMapping( RutasApi.NUM_PAGINAS_DIARIO )
+    public ResponseEntity<Integer> consultarNumeroPaginasDiario( @Valid @RequestParam Integer idUsuario ) {
+        Integer numeroPaginas = diarioServicio.consultarNumeroPaginasDiario( idUsuario );
+        return ResponseEntity.ok( numeroPaginas );
+    }
+    
     @PostMapping( RutasApi.REGISTRO_DIARIO )
     public ResponseEntity<EntradaDiarioDTO> registrarEntradaDiario( @Valid @RequestBody EntradaDiarioDTO nuevaEntradaDiario ) {
         EntradaDiarioDTO entradaGuardada = diarioServicio.registrarEntradaDiario( nuevaEntradaDiario );
         return ResponseEntity.ok( entradaGuardada );
     }
     
-    @PostMapping( RutasApi.ENTRADA_DIARIO )
+    @PostMapping( RutasApi.FILTRO_ENTRADAS )
     public ResponseEntity<List<EntradaDiarioDTO>> obtenerEntradasDiario( @Valid @RequestBody FiltroEntradasDiarioDTO datosFiltro ) {
         List<EntradaDiarioDTO> entradasDiario = diarioServicio.obtenerEntradasDiario( datosFiltro );
         

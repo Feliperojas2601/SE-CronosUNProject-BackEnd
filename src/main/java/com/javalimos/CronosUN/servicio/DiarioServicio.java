@@ -32,6 +32,13 @@ public class DiarioServicio {
     
     private static final int TAMANIO_PAGINA = 10;
     
+    public Integer consultarNumeroPaginasDiario( Integer idUsuario ) {
+        Usuario usuarioActual = usuarioRepository.findById( idUsuario ).get();
+        Integer numeroEntradas = entradaDiarioRepository.countByUsuario( usuarioActual );
+        final Integer numeroPaginas = (int) Math.ceil( numeroEntradas / TAMANIO_PAGINA );
+        return numeroPaginas;
+    }
+    
     public List<EntradaDiarioDTO> obtenerEntradasDiario( FiltroEntradasDiarioDTO datosFiltro ) {
         Pageable paginacion = PageRequest.of( datosFiltro.getNumeroPagina(), TAMANIO_PAGINA );
         Page<EntradaDiario> resultadoEntradas = filtrarEntradasDiario( datosFiltro, paginacion );

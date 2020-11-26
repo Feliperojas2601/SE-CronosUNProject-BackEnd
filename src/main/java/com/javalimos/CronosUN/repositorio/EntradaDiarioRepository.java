@@ -15,6 +15,8 @@ import java.util.Optional;
 
 @Repository
 public interface EntradaDiarioRepository extends PagingAndSortingRepository<EntradaDiario, Integer> {
+    Integer countByUsuario( Usuario usuarioActual );
+    
     Page<EntradaDiario> findByUsuarioAndFechaBetween( Usuario usuario, Date inicio, Date fin, Pageable paginacion );
     
     Page<EntradaDiario> findByUsuarioAndFechaBetweenAndHoraBetween(

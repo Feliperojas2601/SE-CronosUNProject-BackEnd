@@ -25,7 +25,6 @@ public class EntradaDiario implements Serializable {
     private Integer id;
     
     @NotNull
-    @DateTimeFormat( pattern = "yyyy-MM-dd" )
     @Column( name = "\"ent_fecha\"", nullable = false )
     @Temporal( TemporalType.DATE )
     private Date fecha;
@@ -35,7 +34,6 @@ public class EntradaDiario implements Serializable {
     private String contenido;
     
     @NotNull
-    @DateTimeFormat( pattern = "HH:mm:ss" )
     @Column( name = "\"ent_hora\"", nullable = false )
     @Temporal( TemporalType.TIME )
     private Date hora;

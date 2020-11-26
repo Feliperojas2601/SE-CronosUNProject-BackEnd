@@ -1,6 +1,7 @@
 package com.javalimos.CronosUN.servicio;
 
 import com.javalimos.CronosUN.dto.FiltroProyectosPortafolioDTO;
+import com.javalimos.CronosUN.dto.ICategoria;
 import com.javalimos.CronosUN.dto.ProyectoDTO;
 import com.javalimos.CronosUN.especificacion.EspecificacionProyecto;
 import com.javalimos.CronosUN.mapeador.MapeadorProyecto;
@@ -38,17 +39,29 @@ public class PortafolioServicio {
         return proyectoConsultadoDTO;
     }
     
+    public List<String> consultarCategoriasPortafolio( Integer idUsuario ) {
+        Usuario usuarioActual = usuarioRepository.findById( idUsuario ).get();
+        List<ICategoria> categoriasPortafolio = portafolioRepository.findDistinctCategoriasByUsuario( usuarioActual );
+        return categoriasPortafolio
+                .stream()
+                .map( ICategoria::getCategoria )
+                .collect( Collectors.toList() );
+    }
+    
+    public Integer consultarNumeroPaginasPortafolio( Integer idUsuario ) {
+        Usuario usuarioActual = usuarioRepository.findById( idUsuario ).get();
+        Integer numeroProyectos = portafolioRepository.countByUsuario( usuarioActual );
+        final Integer numeroPaginas = (int) Math.ceil( numeroProyectos / TAMANIO_PAGINA );
+        System.out.println(numeroPaginas);
+        return numeroPaginas;
+    }
+    
     public ProyectoDTO registrarProyectoPortafolio( ProyectoDTO nuevoProyecto ) {
         Usuario usuarioActual = usuarioRepository.findById( nuevoProyecto.getIdUsuario() ).get();
         Proyecto proyecto = mapeadorProyecto.toProyecto( nuevoProyecto );
         proyecto.setUsuario( usuarioActual );
         ProyectoDTO proyectoGuardado = mapeadorProyecto.toProyectoDTO( portafolioRepository.save( proyecto ) );
         return proyectoGuardado;
-    }
-    
-    public ProyectoDTO actualizarProyectoPortafolio( Integer idProyecto, ProyectoDTO proyectoEditado ) {
-        proyectoEditado.setId( idProyecto );
-        return registrarProyectoPortafolio( proyectoEditado );
     }
     
     public List<ProyectoDTO> obtenerProyectosPortafolio( FiltroProyectosPortafolioDTO datosFiltro ) {
@@ -73,6 +86,11 @@ public class PortafolioServicio {
                     .collect( Collectors.toList() );
         }
         return new ArrayList<ProyectoDTO>();
+    }
+    
+    public ProyectoDTO actualizarProyectoPortafolio( Integer idProyecto, ProyectoDTO proyectoEditado ) {
+        proyectoEditado.setId( idProyecto );
+        return registrarProyectoPortafolio( proyectoEditado );
     }
     
     public boolean eliminarProyectoPortafolio( Integer idProyecto ) {
