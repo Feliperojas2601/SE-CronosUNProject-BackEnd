@@ -1,15 +1,15 @@
 package com.javalimos.CronosUN.servicio.implementacion;
 
-import com.javalimos.CronosUN.dto.UsuarioDTO;
+import com.javalimos.CronosUN.dto.InformacionUsuarioDTO;
+import com.javalimos.CronosUN.dto.RegistroUsuarioDTO;
 import com.javalimos.CronosUN.mapeador.MapeadorUsuario;
 import com.javalimos.CronosUN.modelo.Usuario;
 import com.javalimos.CronosUN.repositorio.UsuarioRepository;
-import com.javalimos.CronosUN.servicio.IInformacionUsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class InformacionUsuarioServicio implements IInformacionUsuarioServicio{
+public class InformacionUsuarioServicio {
 
     @Autowired
     private MapeadorUsuario mapeador;
@@ -17,11 +17,13 @@ public class InformacionUsuarioServicio implements IInformacionUsuarioServicio{
     @Autowired
     private UsuarioRepository repositorio;
 
-    public UsuarioDTO obtenerInformacionUsuario( UsuarioDTO usuarioDTO ) {
-        Usuario Usuario = mapeador.toUsuario( usuarioDTO );
-        Usuario infoRegistrado = repositorio.toString( Usuario );
-        UsuarioDTO respuestaUsuarioDTO = mapeador.toUsuarioDTO( infoRegistrado );
-        return respuestaUsuarioDTO;
+    public RegistroUsuarioDTO obtenerInformacionUsuario( InformacionUsuarioDTO informacionUsuarioDTO ) {
+        System.out.println(informacionUsuarioDTO);
+        Usuario usuario = repositorio.findById(informacionUsuarioDTO.getId()).get();
+        System.out.println( usuario);
+        RegistroUsuarioDTO respuestaUsuario = mapeador.toUsuarioDTO( usuario );
+
+        return respuestaUsuario;
     }
 
 }
