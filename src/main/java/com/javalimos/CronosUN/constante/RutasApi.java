@@ -8,4 +8,5 @@ public class RutasApi {
     public static final String INFORMACION_USUARIO = "/informacionUsuario";
     
     private RutasApi() { }
+
 }
