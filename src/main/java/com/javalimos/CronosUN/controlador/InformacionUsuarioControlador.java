@@ -8,7 +8,7 @@ import com.javalimos.CronosUN.servicio.InformacionUsuarioServicio;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping( RutasApi.INFORMACION_USUARIO )
+@CrossOrigin (origins = "http://localhost:3000")
 public class InformacionUsuarioControlador {
 
     private final InformacionUsuarioServicio servicio;
@@ -17,7 +17,7 @@ public class InformacionUsuarioControlador {
         this.servicio = servicio;
     }
 
-    @PostMapping
+    @GetMapping( RutasApi.INFORMACION_USUARIO )
     public ResponseEntity<?> obtenerInformacionUsuario(
             @Valid @RequestParam Integer id ) {
         RegistroUsuarioDTO idUsuario = servicio.obtenerInformacionUsuario( id );
