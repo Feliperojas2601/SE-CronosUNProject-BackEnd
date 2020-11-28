@@ -9,6 +9,7 @@ import com.javalimos.CronosUN.servicio.RegistroServicio;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin (origins = "http://localhost:3000")
 @RequestMapping( RutasApi.CREAR_USUARIO )
 public class RegistroControlador {
     
