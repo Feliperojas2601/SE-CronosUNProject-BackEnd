@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -26,11 +23,11 @@ public class RecuperacionClaveServicio {
 
     public Integer realizarRecuperacionClave (String correo) {
         Usuario usuarioactual = usuarioRepositorio.findUsuarioByCorreo(correo);
-        properties.put("mail.smtp.host", "smtp.googlemail.com");
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.port",25);
-        properties.put("mail.smtp.mail.sender","javalimos2@gmail.com");
-        properties.put("mail.smtp.user", "javalimos2@gmail.com");
+        properties.put("mail.smtp.host", "SMTP.Office365.com");
+        //properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.port",587);
+        properties.put("mail.smtp.mail.sender","javalimos2@outlook.com");
+        properties.put("mail.smtp.user", "javalimos2@outlook.com");
         properties.put("mail.smtp.auth", "true");
         session = Session.getDefaultInstance(properties);
         try{

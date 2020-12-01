@@ -12,6 +12,5 @@ import java.util.Optional;
 
 @Repository
 public interface HorarioInscripcionRepository extends CrudRepository<HorarioInscripcion, Integer> {
-    @Query("SELECT ao FROM AsignaturaOpcion ao WHERE ao.usuario = :usuario")
-    List<AsignaturaOpcion> findAsignaturaOpcionByUsuario(Usuario usuario);
+
 }
