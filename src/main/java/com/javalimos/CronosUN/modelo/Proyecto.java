@@ -56,7 +56,6 @@ public class Proyecto implements Serializable {
     private String categoria;
     
     @ToString.Exclude
-    @JoinColumn( name = "\"pro_usu_id\"", nullable = false, insertable = false, updatable = false )
     @ManyToOne( fetch = FetchType.LAZY )
     @Valid
     private Usuario usuario;
