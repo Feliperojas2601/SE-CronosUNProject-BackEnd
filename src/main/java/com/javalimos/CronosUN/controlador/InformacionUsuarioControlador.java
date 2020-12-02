@@ -4,6 +4,7 @@ import com.javalimos.CronosUN.constante.RutasApi;
 import com.javalimos.CronosUN.dto.RegistroUsuarioDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 import com.javalimos.CronosUN.servicio.InformacionUsuarioServicio;
 import javax.validation.Valid;
 
@@ -23,4 +24,19 @@ public class InformacionUsuarioControlador {
         RegistroUsuarioDTO idUsuario = servicio.obtenerInformacionUsuario( id );
         return ResponseEntity.ok(idUsuario);
     }
+    @PutMapping( RutasApi.MODIFICAR_USUARIO )
+    public ResponseEntity<?> modificarUsuario(
+            @Valid @RequestBody RegistroUsuarioDTO usuarioDTO ) {
+        RegistroUsuarioDTO UsuarioModificado = servicio.modificarUsuario( usuarioDTO );
+        return ResponseEntity.ok(UsuarioModificado);
+    }
+    @DeleteMapping( RutasApi.ELIMINAR_USUARIO )
+    public ResponseEntity<?> eliminarUsuario(
+            @Valid @RequestParam Integer id) {
+        if ( servicio.eliminarUsuario( id) ) {
+            return new ResponseEntity<>( HttpStatus.OK );
+        }
+        return new ResponseEntity<>( HttpStatus.NOT_ACCEPTABLE );
+    }
+
 }
