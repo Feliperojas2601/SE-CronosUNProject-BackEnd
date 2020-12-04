@@ -39,6 +39,12 @@ public class PortafolioControlador {
         return ResponseEntity.ok( numeroPaginas );
     }
     
+    @GetMapping( RutasApi.CONSULTA_PORTAFOLIO_USUARIO )
+    public ResponseEntity<List<ProyectoDTO>> consultarPortafolioUsuario( @RequestParam String correo, @RequestParam Integer numeroPagina ) {
+        List<ProyectoDTO> proyectosPortafolio = portafolioServicio.consultarPortafolioUsuario( correo, numeroPagina );
+        return ResponseEntity.ok( proyectosPortafolio );
+    }
+    
     @PostMapping( RutasApi.REGISTRO_PROYECTO )
     public ResponseEntity<ProyectoDTO> registrarProyectoPortafolio( @Valid @RequestBody ProyectoDTO nuevoProyecto ) {
         ProyectoDTO proyectoGuardado = portafolioServicio.registrarProyectoPortafolio( nuevoProyecto );
@@ -52,9 +58,8 @@ public class PortafolioControlador {
     }
     
     @PutMapping( RutasApi.ACTUALIZACION_PROYECTO )
-    public ResponseEntity<ProyectoDTO> actualizarProyectoPortafolio( @Valid @PathVariable( "id" ) Integer idProyecto,
-                                                                     @RequestBody ProyectoDTO proyectoEditado ) {
-        ProyectoDTO proyectoActualizado = portafolioServicio.actualizarProyectoPortafolio( idProyecto, proyectoEditado );
+    public ResponseEntity<ProyectoDTO> actualizarProyectoPortafolio( @RequestBody ProyectoDTO proyectoEditado ) {
+        ProyectoDTO proyectoActualizado = portafolioServicio.actualizarProyectoPortafolio( proyectoEditado );
         return ResponseEntity.ok( proyectoActualizado );
     }
     

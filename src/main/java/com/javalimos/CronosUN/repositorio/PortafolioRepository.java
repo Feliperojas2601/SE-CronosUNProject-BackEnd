@@ -16,6 +16,8 @@ import java.util.Optional;
 public interface PortafolioRepository extends PagingAndSortingRepository<Proyecto, Integer> {
     Page<Proyecto> findAll( Specification<Proyecto> especificacion, Pageable paginacion );
 
+    Page<Proyecto> findByUsuario( Usuario usuario, Pageable paginacion );
+    
     List<ICategoria> findDistinctCategoriasByUsuario( Usuario usuario );
     
     Integer countByUsuario( Usuario usuarioActual );

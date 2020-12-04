@@ -51,23 +51,30 @@ public class PortafolioServicio {
     public Integer consultarNumeroPaginasPortafolio( Integer idUsuario ) {
         Usuario usuarioActual = usuarioRepository.findById( idUsuario ).get();
         Integer numeroProyectos = portafolioRepository.countByUsuario( usuarioActual );
-        final Integer numeroPaginas = (int) Math.ceil( numeroProyectos / TAMANIO_PAGINA );
-        System.out.println(numeroPaginas);
+        final Integer numeroPaginas = ( int ) Math.ceil( numeroProyectos / TAMANIO_PAGINA );
+        System.out.println( numeroPaginas );
         return numeroPaginas;
+    }
+    
+    public List<ProyectoDTO> consultarPortafolioUsuario( String correo, Integer numeroPagina ) {
+        Usuario usuarioActual = usuarioRepository.findByCorreo( correo ).get();
+        Pageable paginacion = PageRequest.of( numeroPagina, TAMANIO_PAGINA );
+        Page<Proyecto> resultadoPortafolio = portafolioRepository.findByUsuario( usuarioActual, paginacion );
+        return obtenerResultadoProyectosPortafolio( resultadoPortafolio );
     }
     
     public ProyectoDTO registrarProyectoPortafolio( ProyectoDTO nuevoProyecto ) {
         Usuario usuarioActual = usuarioRepository.findById( nuevoProyecto.getIdUsuario() ).get();
         Proyecto proyecto = mapeadorProyecto.toProyecto( nuevoProyecto );
         proyecto.setUsuario( usuarioActual );
-        ProyectoDTO proyectoGuardado = mapeadorProyecto.toProyectoDTO( portafolioRepository.save( proyecto ) );
-        return proyectoGuardado;
+        ProyectoDTO proyectoRegistrado = mapeadorProyecto.toProyectoDTO( portafolioRepository.save( proyecto ) );
+        return proyectoRegistrado;
     }
     
     public List<ProyectoDTO> obtenerProyectosPortafolio( FiltroProyectosPortafolioDTO datosFiltro ) {
         Pageable paginacion = PageRequest.of( datosFiltro.getNumeroPagina(), TAMANIO_PAGINA );
         Page<Proyecto> resultadoProyectos = filtrarProyectosPortafolio( datosFiltro, paginacion );
-        return obtenerResultadoFiltroProyectosPortafolio( resultadoProyectos );
+        return obtenerResultadoProyectosPortafolio( resultadoProyectos );
     }
     
     private Page<Proyecto> filtrarProyectosPortafolio( FiltroProyectosPortafolioDTO datosFiltro, Pageable paginacion ) {
@@ -77,7 +84,7 @@ public class PortafolioServicio {
         return portafolioRepository.findAll( especificacionProyecto, paginacion );
     }
     
-    private List<ProyectoDTO> obtenerResultadoFiltroProyectosPortafolio( Page<Proyecto> resultadoProyectos ) {
+    private List<ProyectoDTO> obtenerResultadoProyectosPortafolio( Page<Proyecto> resultadoProyectos ) {
         if ( resultadoProyectos.hasContent() ) {
             return resultadoProyectos
                     .getContent()
@@ -88,8 +95,8 @@ public class PortafolioServicio {
         return new ArrayList<ProyectoDTO>();
     }
     
-    public ProyectoDTO actualizarProyectoPortafolio( Integer idProyecto, ProyectoDTO proyectoEditado ) {
-        proyectoEditado.setId( idProyecto );
+    public ProyectoDTO actualizarProyectoPortafolio( ProyectoDTO proyectoEditado ) {
+        proyectoEditado.setId( proyectoEditado.getId() );
         return registrarProyectoPortafolio( proyectoEditado );
     }
     
