@@ -44,7 +44,7 @@ public class Usuario implements Serializable {
     private String nombre;
     
     @NotBlank
-    @Column( name = "\"usu_correo\"", nullable = false, length = 320, unique = true)
+    @Column( name = "\"usu_correo\"", nullable = false, length = 320)
     private String correo;
     
     @NotBlank
@@ -52,7 +52,7 @@ public class Usuario implements Serializable {
     private String clave;
     
     @NotBlank
-    @Column( name = "\"usu_alias\"", nullable = false, length = 45 )
+    @Column( name = "\"usu_alias\"", nullable = false, length = 45 , unique = true)
     @Size( min = 4, message = "El alias del usuario debe tener como minimo 4 caracteres." )
     @Size( max = 45, message = "El alias del usuario debe tener como maximo 45 caracteres." )
     private String alias;

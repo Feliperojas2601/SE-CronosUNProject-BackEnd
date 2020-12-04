@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
 
-    Optional<Usuario> findByAlias(String alias);
-
+    Usuario findByAlias(String alias);
+    Usuario findByCorreo(String Correo);
+    boolean existsByCorreo(String Correo);
 }

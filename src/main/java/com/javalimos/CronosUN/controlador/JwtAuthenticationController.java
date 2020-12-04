@@ -1,6 +1,7 @@
 package com.javalimos.CronosUN.controlador;
 
 import com.javalimos.CronosUN.configuracion.seguridad.JwtTokenUtil;
+import com.javalimos.CronosUN.constante.RutasApi;
 import com.javalimos.CronosUN.dto.JwtRequestDto;
 import com.javalimos.CronosUN.dto.JwtResponseDto;
 import com.javalimos.CronosUN.servicio.JwtUserDetailsService;
@@ -12,17 +13,12 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin (origins = "http://localhost:3000")
 public class JwtAuthenticationController {
     @Autowired
-    
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -33,20 +29,26 @@ public class JwtAuthenticationController {
     
     @RequestMapping(value = "/autenticacion", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@Valid @RequestBody JwtRequestDto authenticationRequest) throws Exception {
-        authenticate(authenticationRequest.getAlias(), authenticationRequest.getClave());
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getAlias());
+        authenticate(authenticationRequest.getCorreo(), authenticationRequest.getClave());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getCorreo());
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponseDto(token));
     }
 
-    private void authenticate(String username, String password) throws Exception {
+    private void authenticate(String correo, String password) throws Exception {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(correo, password));
         } catch (DisabledException e) {
             throw new Exception("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
+    }
+    @GetMapping( RutasApi.OBTENER_ID )
+    public ResponseEntity<?> obtenerId(
+            @Valid @RequestParam String correo ) {
+        Integer idUsuario = userDetailsService.cargarIdUsuario(correo);
+        return ResponseEntity.ok(idUsuario);
     }
 
 }
