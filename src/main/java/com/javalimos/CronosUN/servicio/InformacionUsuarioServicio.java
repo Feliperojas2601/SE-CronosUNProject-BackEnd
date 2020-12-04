@@ -28,8 +28,16 @@ public class InformacionUsuarioServicio {
 
     public RegistroUsuarioDTO modificarUsuario(RegistroUsuarioDTO usuario){
 
-        Usuario usuarioEntidad = mapeador.toUsuario(usuario);
-        RegistroUsuarioDTO usuarioModificado = mapeador.toUsuarioDTO( repositorio.save(usuarioEntidad) );
+        Usuario usuarioActual = repositorio.findById( usuario.getId() ).get();
+
+        usuarioActual.setNombre(usuario.getNombre());
+        usuarioActual.setAlias(usuario.getAlias());
+        usuarioActual.setCorreo(usuario.getCorreo());
+        usuarioActual.setClave(usuario.getClave());
+        usuarioActual.setBiografia(usuario.getBiografia());
+
+
+        RegistroUsuarioDTO usuarioModificado = mapeador.toUsuarioDTO( repositorio.save(usuarioActual) );
         return usuarioModificado;
 
     }

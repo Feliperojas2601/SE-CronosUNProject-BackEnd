@@ -12,6 +12,7 @@ import org.mapstruct.Mappings;
 public interface MapeadorUsuario {
 
     @Mappings({
+        @Mapping(source = "id", target = "id"),
         @Mapping(source = "nombre", target = "nombre"),
         @Mapping(source = "correo", target = "correo"),
         @Mapping(source = "clave", target = "clave"),
