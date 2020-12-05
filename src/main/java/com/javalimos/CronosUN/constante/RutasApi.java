@@ -4,6 +4,11 @@ public class RutasApi {
     
     public static final String CREAR_USUARIO = "/registro";
     public static final String INICIO_SESION = "/autenticacion";
+    public static final String REGISTRO_OPCION_ASIGNATURA = "/asignaturaOpciones/registro";
+    public static final String RESTABLECER_OPCION_ASIGNATURA = "/asignaturaOpciones/restablecer";
+    public static final String OPCIONES_ASIGNATURAS = "/asignaturaOpciones";
+    public static final String HORARIO_INSCRIPCION = "/horarioInscripcion";
+    public static final String RECUPERACION_CLAVE = "/recuperacionClave";
     public static final String OPCION_ASIGNATURA = "/asignaturaOpcion";
     public static final String REGISTRO_DIARIO = "/entradasDiario/registro";
     public static final String ENTRADA_DIARIO = "/entradasDiario/{id}";
@@ -19,6 +24,6 @@ public class RutasApi {
     public static final String COMENTARIOS_PROYECTO = "/proyectos/comentarios";
     public static final String REGISTRO_COMENTARIO = "/proyectos/comentarios/registro";
     public static final String COMENTARIO = "/proyectos/comentarios/{id}";
-    
+  
     private RutasApi() { }
 }
