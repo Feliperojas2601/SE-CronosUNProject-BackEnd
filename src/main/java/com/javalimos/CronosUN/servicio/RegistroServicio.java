@@ -18,16 +18,5 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RegistroServicio {
     
-    @Autowired
-    private final MapeadorUsuario mapeador;
 
-    @Autowired
-    private final UsuarioRepository repositorio;
-
-    public Integer realizarRegistroUsuario(RegistroUsuarioDTO usuario){
-        Usuario usuarioEntidad = mapeador.toUsuario(usuario);
-        Usuario usuarioGuardado = repositorio.save(usuarioEntidad);
-        return usuarioGuardado.getId();
-    }
-    
 }
