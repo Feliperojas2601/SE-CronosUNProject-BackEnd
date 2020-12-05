@@ -53,13 +53,13 @@ public class Comentario implements Serializable {
     
     @ToString.Exclude
     @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"com_pro_id\"", nullable = false, insertable = false, updatable = false )
+    @JoinColumn( name = "\"com_pro_id\"", nullable = false, updatable = false )
     @Valid
     private Proyecto proyecto;
     
     @ToString.Exclude
     @ManyToOne( fetch = FetchType.LAZY )
-    @JoinColumn( name = "\"com_usu_id\"", insertable = false, updatable = false )
+    @JoinColumn( name = "\"com_usu_id\"", nullable = false, updatable = false )
     @Valid
     private Usuario usuario;
 }

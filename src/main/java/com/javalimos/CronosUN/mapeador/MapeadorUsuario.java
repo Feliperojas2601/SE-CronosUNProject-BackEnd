@@ -18,8 +18,8 @@ public interface MapeadorUsuario {
         @Mapping(source = "alias", target = "alias"),
         @Mapping(source = "biografia", target = "biografia")
     })
-    Usuario toUsuario(RegistroUsuarioDTO usuarioDTO);
+    Usuario toUsuario( RegistroUsuarioDTO usuarioDTO );
 
     @InheritInverseConfiguration
-    RegistroUsuarioDTO toUsuarioDTO(Usuario usuario);
+    RegistroUsuarioDTO toUsuarioDTO( Usuario usuario );
 }
