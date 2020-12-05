@@ -24,6 +24,9 @@ public class RutasApi {
     public static final String COMENTARIOS_PROYECTO = "/proyectos/comentarios";
     public static final String REGISTRO_COMENTARIO = "/proyectos/comentarios/registro";
     public static final String COMENTARIO = "/proyectos/comentarios/{id}";
-  
+    public static final String INFORMACION_USUARIO = "/informacionUsuario";
+    public static final String MODIFICAR_USUARIO = "/modificacionUsuario";
+    public static final String ELIMINAR_USUARIO = "/EliminacionUsuario";
     private RutasApi() { }
+
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class RegistroServicio {
-    
+
     @Autowired
     private final MapeadorUsuario mapeador;
     
@@ -29,4 +29,5 @@ public class RegistroServicio {
         return usuarioGuardado.getId();
     }
     
+
 }

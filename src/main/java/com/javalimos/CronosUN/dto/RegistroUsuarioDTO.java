@@ -16,6 +16,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegistroUsuarioDTO implements Serializable {
+
+    private Integer id;
     
     @NotBlank
     private String nombre;

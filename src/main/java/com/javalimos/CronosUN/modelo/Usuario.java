@@ -44,7 +44,7 @@ public class Usuario implements Serializable {
     private String nombre;
     
     @NotBlank
-    @Column( name = "\"usu_correo\"", nullable = false, length = 320 )
+    @Column( name = "\"usu_correo\"", nullable = false, length = 320 , unique = true)
     private String correo;
     
     @NotBlank
