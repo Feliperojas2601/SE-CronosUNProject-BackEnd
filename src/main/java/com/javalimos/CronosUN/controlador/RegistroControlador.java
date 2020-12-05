@@ -9,8 +9,6 @@ import com.javalimos.CronosUN.servicio.RegistroServicio;
 import javax.validation.Valid;
 
 @RestController
-@CrossOrigin (origins = "http://localhost:3000")
-@RequestMapping( RutasApi.CREAR_USUARIO )
 public class RegistroControlador {
     
     private final RegistroServicio servicio;
@@ -19,10 +17,21 @@ public class RegistroControlador {
         this.servicio = servicio;        
     }
     
-    @PostMapping
+    @PostMapping( RutasApi.CREAR_USUARIO)
+    @CrossOrigin (origins = "http://localhost:3000")
     public ResponseEntity<?> realizarRegistroUsuario(
             @Valid @RequestBody RegistroUsuarioDTO usuarioDTO ) {
         Integer idUsuario = servicio.realizarRegistroUsuario( usuarioDTO );
         return ResponseEntity.ok(idUsuario);
     }
+    /*
+    @GetMapping( RutasApi.OBTENER_ID )
+    @CrossOrigin (origins = "http://localhost:3000")
+    public ResponseEntity<?> obtenerId(
+            @Valid @RequestParam String correo ) {
+        Integer idUsuario = servicio.cargarIdUsuario(correo);
+        return ResponseEntity.ok(idUsuario);
+    }
+
+     */
 }

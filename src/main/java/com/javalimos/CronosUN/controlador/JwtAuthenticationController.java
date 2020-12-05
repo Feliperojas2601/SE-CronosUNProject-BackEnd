@@ -32,7 +32,10 @@ public class JwtAuthenticationController {
         authenticate(authenticationRequest.getCorreo(), authenticationRequest.getClave());
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getCorreo());
         final String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponseDto(token));
+        final Integer idUsuario = userDetailsService.cargarIdUsuario(authenticationRequest.getCorreo());
+        JwtResponseDto credenciales = new JwtResponseDto(token,idUsuario);
+
+        return ResponseEntity.ok(credenciales);
     }
 
     private void authenticate(String correo, String password) throws Exception {
@@ -43,12 +46,6 @@ public class JwtAuthenticationController {
         } catch (BadCredentialsException e) {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
-    }
-    @GetMapping( RutasApi.OBTENER_ID )
-    public ResponseEntity<?> obtenerId(
-            @Valid @RequestParam String correo ) {
-        Integer idUsuario = userDetailsService.cargarIdUsuario(correo);
-        return ResponseEntity.ok(idUsuario);
     }
 
 }
