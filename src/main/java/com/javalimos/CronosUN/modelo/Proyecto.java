@@ -28,14 +28,14 @@ public class Proyecto implements Serializable {
     @Column( name = "\"pro_titulo\"", nullable = false, length = 45 )
     private String titulo;
     
-    @Column( name = "\"pro_descripcion\"" )
+    @Column( name = "\"pro_descripcion\"", length = 255 )
     private String descripcion;
     
     @Column( name = "\"pro_contenido\"", length = 10000 )
     private String contenido;
     
     @NotNull
-    @Column( name = "\"pro_privacidad\"", nullable = false, columnDefinition = "tinyint")
+    @Column( name = "\"pro_privacidad\"", nullable = false, columnDefinition = "tinyint" )
     private boolean privacidad;
     
     @NotBlank
@@ -56,28 +56,29 @@ public class Proyecto implements Serializable {
     private String categoria;
     
     @ToString.Exclude
+    @JoinColumn( name = "\"pro_usu_id\"", nullable = false, updatable = false )
     @ManyToOne( fetch = FetchType.LAZY )
     @Valid
     private Usuario usuario;
     
     @OneToMany( fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL,
-                mappedBy = "proyecto",
-                orphanRemoval = true )
+            cascade = CascadeType.ALL,
+            mappedBy = "proyecto",
+            orphanRemoval = true )
     @Valid
     private List<Archivo> archivos = new ArrayList<>();
     
     @OneToMany( fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL,
-                mappedBy = "proyecto",
-                orphanRemoval = true )
+            cascade = CascadeType.ALL,
+            mappedBy = "proyecto",
+            orphanRemoval = true )
     @Valid
     private List<Comentario> comentarios = new ArrayList<>();
     
     @OneToMany( fetch = FetchType.LAZY,
-                cascade = CascadeType.ALL,
-                mappedBy = "proyecto",
-                orphanRemoval = true )
+            cascade = CascadeType.ALL,
+            mappedBy = "proyecto",
+            orphanRemoval = true )
     @Valid
     private List<Reporte> reportes = new ArrayList<>();
     
